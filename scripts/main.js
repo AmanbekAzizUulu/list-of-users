@@ -1,76 +1,4 @@
-// база данных
-let listOfUsers = [
-	{
-		firstName: "Aibek",
-		middleName: "Tashevich",
-		lastName: "Voronin",
-		age: 28,
-		hobby: "Reading"
-	},
-	{
-		firstName: "Ivan",
-		middleName: "Sergeevich",
-		lastName: "Ivanov",
-		age: 34,
-		hobby: "Gaming"
-	},
-	{
-		firstName: "Maria",
-		middleName: "Dmitrievna",
-		lastName: "Petrova",
-		age: 22,
-		hobby: "Painting"
-	},
-	{
-		firstName: "Alexey",
-		middleName: "Viktorovich",
-		lastName: "Sidorov",
-		age: 40,
-		hobby: "Fishing"
-	},
-	{
-		firstName: "Olga",
-		middleName: "Nikolaevna",
-		lastName: "Smirnova",
-		age: 29,
-		hobby: "Dancing"
-	},
-	{
-		firstName: "Dmitry",
-		middleName: "Andreevich",
-		lastName: "Kuznetsov",
-		age: 31,
-		hobby: "Cooking"
-	},
-	{
-		firstName: "Elena",
-		middleName: "Pavlovna",
-		lastName: "Popova",
-		age: 25,
-		hobby: "Traveling"
-	},
-	{
-		firstName: "Sergey",
-		middleName: "Alexandrovich",
-		lastName: "Volkov",
-		age: 37,
-		hobby: "Photography"
-	},
-	{
-		firstName: "Tatiana",
-		middleName: "Vladimirovna",
-		lastName: "Kozlova",
-		age: 26,
-		hobby: "Yoga"
-	},
-	{
-		firstName: "Pavel",
-		middleName: "Olegovich",
-		lastName: "Lebedev",
-		age: 33,
-		hobby: "Cycling"
-	}
-];
+import { listOfUsers } from "./users.js";
 
 console.table(listOfUsers);
 
@@ -78,6 +6,7 @@ console.table(listOfUsers);
 // создание элементов
 const
 	$app = document.getElementById("app");
+	$addNewUser__form = document.getElementById("add-new-user-form");
 
 const
 	$table = document.createElement("table"),
@@ -91,6 +20,8 @@ const
 	$tableHeadTh__age = document.createElement("th"),
 	$tableHeadTh__year_of_birth = document.createElement("th"),
 	$tableHeadTh__hobby = document.createElement("th");
+
+$table.classList.add("table", "table-striped-columns");
 
 $tableHeadTh__first_middle_last_names.textContent = "ФИО";
 $tableHeadTh__age.textContent = "Возраст"
@@ -115,7 +46,8 @@ $app.append($table);
 
 // 2. отрисовка
 
-// TODO изменить логику → нужно отрисовывать только часть пользователей и только по запросу отрисовывать оставшихся (по возможности)
+let listOfUsers__copy = [...listOfUsers];																			// → создаю копию массива данных
+
 for (let user of listOfUsers__copy) {
 	const
 		$userTr = document.createElement("tr"),
@@ -137,3 +69,5 @@ for (let user of listOfUsers__copy) {
 
 	$tableBody.append($userTr);
 }
+
+
