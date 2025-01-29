@@ -1,9 +1,14 @@
+// TODO разделить код на модули
+// TODO улучшить функциональность фильтрации
+// TODO улучшить функциональность сортировки
+// TODO улучшить функциональность отображения скиска
+
+
 import { listOfUsers } from "./users.js";
 
 console.table(listOfUsers);
 
-
-// создание элементов
+// retrieving elements
 const
 	$app = document.getElementById("app"),
 	$addNewUser__form = document.getElementById("add-new-user-form");
@@ -14,18 +19,27 @@ const
 	$sortButton__by_age__ascendence = document.getElementById("sort-by-age-ascendence-button"),
 	$sortButton__by_age__descendence = document.getElementById("sort-by-age-descendence-button");
 
+const
+	$filterForm = document.getElementById("filter-list-of-users-form");
 
+const
+	$filterForm__filter_by_hobby__input = document.getElementById("hobby-input-filter-list-of-users-form"),
+	$filterForm__filter_by_age__input = document.getElementById("age-input-filter-list-of-users-form"),
+	$filterForm__filter_by_first_name__input = document.getElementById("first-name-input-filter-list-of-users-form"),
+	$filterForm__filter_by_full_name__input = document.getElementById("full-name-input-filter-list-of-users-form");
+
+// elements creation
 const
 	$table = document.createElement("table"),
 	$tableHead = document.createElement("thead"),
 	$tableBody = document.createElement("tbody");
 
 const
-	$firstName__input = document.getElementById("first-name-input"),
-	$middleName__input = document.getElementById("middle-name-input"),
-	$lastName__input = document.getElementById("last-name-input"),
-	$age__input = document.getElementById("age-input"),
-	$hobby__input = document.getElementById("hobby-input");
+	$firstName__input = document.getElementById("first-name-input-add-new-user-form"),
+	$middleName__input = document.getElementById("middle-name-input-add-new-user-form"),
+	$lastName__input = document.getElementById("last-name-input-add-new-user-form"),
+	$age__input = document.getElementById("age-input-add-new-user-form"),
+	$hobby__input = document.getElementById("hobby-input-add-new-user-form");
 
 const
 	$tableHeadTr = document.createElement("tr"),
@@ -75,12 +89,6 @@ function createUser__table_row(user) {
 	return $userTr;
 }
 
-// рендер
-
-// 1. подготовка
-
-// 2. отрисовка
-
 function createUser() {
 	return {
 		firstName: $firstName__input.value.trim(),
@@ -104,11 +112,9 @@ function renderListOfUsers(listToRender) {
 		const $user__table_row_holder = createUser__table_row(user);
 		$tableBody.append($user__table_row_holder);
 	}
-
-	console.table(listOfUsers__copy);
 };
 
-// добавление нового пользователя
+// adding new user
 renderListOfUsers(listOfUsers);
 
 $addNewUser__form.addEventListener("submit", event => {
@@ -139,14 +145,13 @@ $addNewUser__form.addEventListener("submit", event => {
 
 	renderListOfUsers(listOfUsers);
 
-	console.table(listOfUsers);
-
 	$addNewUser__form.reset();
 
 });
 
 // sorting events
 
+// ascendence way
 $sortButton__by_full_name_length__ascendence.addEventListener('click', event => {
 	listOfUsers.sort((user_1, user_2) => user_1.fullName.length - user_2.fullName.length);
 	renderListOfUsers(listOfUsers);
@@ -157,6 +162,7 @@ $sortButton__by_age__ascendence.addEventListener(`click`, event => {
 	renderListOfUsers(listOfUsers);
 });
 
+// descendence way
 $sortButton__by_full_name_length__descendence.addEventListener('click', event => {
 	listOfUsers.sort((user_1, user_2) => user_2.fullName.length - user_1.fullName.length);
 	renderListOfUsers(listOfUsers);
@@ -166,3 +172,52 @@ $sortButton__by_age__descendence.addEventListener(`click`, event => {
 	listOfUsers.sort((user_1, user_2) => user_2.age - user_1.age);
 	renderListOfUsers(listOfUsers);
 });
+
+
+// filter events
+
+$filterForm.addEventListener('submit', event => {
+	event.preventDefault();
+});
+
+// if focus
+$filterForm__filter_by_hobby__input.addEventListener('input', event => {
+	const filteredListOfUsers = listOfUsers.filter(user => user.hobby.toLowerCase().includes($filterForm__filter_by_hobby__input.value.trim()));
+	renderListOfUsers(filteredListOfUsers);
+});
+
+$filterForm__filter_by_age__input.addEventListener('input', event => {
+	const filteredListOfUsers = listOfUsers.filter(user => user.age === parseInt($filterForm__filter_by_age__input.value));
+	renderListOfUsers(filteredListOfUsers);
+});
+
+$filterForm__filter_by_first_name__input.addEventListener(`input`, event => {
+	const filteredListOfUsers = listOfUsers.filter(user => user.firstName.toLowerCase().includes($filterForm__filter_by_first_name__input.value.trim()));
+	renderListOfUsers(filteredListOfUsers);
+});
+
+$filterForm__filter_by_full_name__input.addEventListener(`input`, event => {
+	const filteredListOfUsers = listOfUsers.filter(user => user.fullName.toLowerCase().includes($filterForm__filter_by_full_name__input.value.trim()));
+	renderListOfUsers(filteredListOfUsers);
+});
+
+// if blur
+$filterForm__filter_by_hobby__input.addEventListener('blur', event => {
+	renderListOfUsers(listOfUsers);
+	event.target.value = '';
+});
+
+$filterForm__filter_by_age__input.addEventListener('blur', event => {
+	renderListOfUsers(listOfUsers);
+	event.target.value = '';
+});
+
+$filterForm__filter_by_first_name__input.addEventListener('blur', event => {
+	renderListOfUsers(listOfUsers);
+	event.target.value = '';
+});
+
+$filterForm__filter_by_full_name__input.addEventListener(`blur`, event => {
+	renderListOfUsers(listOfUsers);
+	event.target.value = '';
+})

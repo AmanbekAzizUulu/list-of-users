@@ -12,27 +12,56 @@
 
 <body>
 	<div class="container">
-		<h1>Список пользователей</h1>
+		<h1 class="display-1">Список пользователей</h1>
 
-		<div id="app"></div>
 		<form action="#" method="post" id="add-new-user-form">
-			<input type="text" id="first-name-input" placeholder="First Name" class="form-control mb-3">
-			<input type="text" id="middle-name-input" placeholder="Middle Name" class="form-control mb-3">
-			<input type="text" id="last-name-input" placeholder="Last Name" class="form-control mb-3">
-			<input type="number" id="age-input" placeholder="Age" class="form-control mb-3">
-			<input type="text" id="hobby-input" placeholder="Hobby" class="form-control mb-3">
+			<input type="text" id="first-name-input-add-new-user-form" placeholder="First Name"
+				class="form-control mb-3">
+			<input type="text" id="middle-name-input-add-new-user-form" placeholder="Middle Name"
+				class="form-control mb-3">
+			<input type="text" id="last-name-input-add-new-user-form" placeholder="Last Name" class="form-control mb-3">
+			<input type="number" id="age-input-add-new-user-form" placeholder="Age" class="form-control mb-3">
+			<input type="text" id="hobby-input-add-new-user-form" placeholder="Hobby" class="form-control mb-3">
 
 			<button id="add-new-user-button" type="submit" class="btn btn-success mb-3">Add new user</button>
 		</form>
 
 		<div>
-			<button id="sort-by-full-name-length-descendence-button" type="submit" class="btn btn-info mb-3">Sort by full name length descendence</button>
-			<button id="sort-by-age-ascendence-button" type="submit" class="btn btn-info mb-3">Sort by age ascendence</button>
+			<button id="sort-by-full-name-length-descendence-button" type="submit" class="btn btn-info mb-3">Sort by
+				full name length descendence</button>
+			<button id="sort-by-age-ascendence-button" type="submit" class="btn btn-info mb-3">Sort by age
+				ascendence</button>
 		</div>
 		<div>
-			<button id="sort-by-full-name-length-ascendence-button" type="submit" class="btn btn-info mb-3">Sort by full name length ascendence</button>
-			<button id="sort-by-age-descendence-button" type="submit" class="btn btn-info mb-3">Sort by age descendence</button>
+			<button id="sort-by-full-name-length-ascendence-button" type="submit" class="btn btn-info mb-3">Sort by full
+				name length ascendence</button>
+			<button id="sort-by-age-descendence-button" type="submit" class="btn btn-info mb-3">Sort by age
+				descendence</button>
 		</div>
+
+		<form action="#" id="filter-list-of-users-form">
+			<h2 class="display-3">Сортировка списка пользователей</h2>
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">Filter by Age</span>
+				<input type="text" id="age-input-filter-list-of-users-form" class="form-control">
+			</div>
+
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">Filter by Hobby</span>
+				<input type="text" id="hobby-input-filter-list-of-users-form" class="form-control">
+			</div>
+
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">Filter by First name</span>
+				<input type="text" id="first-name-input-filter-list-of-users-form" class="form-control">
+			</div>
+
+			<div class="input-group mb-5">
+				<span class="input-group-text" id="basic-addon1">Filter by Full name</span>
+				<input type="text" id="full-name-input-filter-list-of-users-form" class="form-control">
+			</div>
+		</form>
+		<div id="app"></div>
 	</div>
 
 	<script type="module" src="../scripts/main.js"></script>
