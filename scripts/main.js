@@ -9,6 +9,13 @@ const
 	$addNewUser__form = document.getElementById("add-new-user-form");
 
 const
+	$sortButton__by_full_name_length__ascendence = document.getElementById("sort-by-full-name-length-ascendence-button"),
+	$sortButton__by_full_name_length__descendence = document.getElementById("sort-by-full-name-length-descendence-button"),
+	$sortButton__by_age__ascendence = document.getElementById("sort-by-age-ascendence-button"),
+	$sortButton__by_age__descendence = document.getElementById("sort-by-age-descendence-button");
+
+
+const
 	$table = document.createElement("table"),
 	$tableHead = document.createElement("thead"),
 	$tableBody = document.createElement("tbody");
@@ -76,11 +83,11 @@ function createUser__table_row(user) {
 
 function createUser() {
 	return {
-		firstName: $firstName__input.value,
-		middleName: $middleName__input.value,
-		lastName: $lastName__input.value,
-		age: parseInt($age__input.value),
-		hobby: $hobby__input.value
+		firstName: $firstName__input.value.trim(),
+		middleName: $middleName__input.value.trim(),
+		lastName: $lastName__input.value.trim(),
+		age: parseInt($age__input.value.trim()),
+		hobby: $hobby__input.value.trim()
 	};
 }
 
@@ -88,16 +95,17 @@ function renderListOfUsers(listToRender) {
 	$tableBody.innerHTML = '';
 
 	const listOfUsers__copy = [...listToRender];
-	
 	for (const user of listOfUsers__copy) {
 		user.fullName = `${user.lastName} ` + `${user.firstName} ` + `${user.middleName} `.trim();
 		user.yearOfBirth = `${new Date().getFullYear() - user.age}`;
 	}
+
 	for (const user of listOfUsers__copy) {
 		const $user__table_row_holder = createUser__table_row(user);
-
 		$tableBody.append($user__table_row_holder);
 	}
+
+	console.table(listOfUsers__copy);
 };
 
 // добавление нового пользователя
@@ -105,6 +113,27 @@ renderListOfUsers(listOfUsers);
 
 $addNewUser__form.addEventListener("submit", event => {
 	event.preventDefault();
+
+	// simple validation
+	if ($firstName__input.value.trim() === "") {
+		alert("First Name is required.");
+		return;
+	}
+	if ($lastName__input.value.trim() === "") {
+		alert("Last Name is required.");
+		return;
+	}
+	if ($age__input.value.trim() === "") {
+		alert("Age is required.");
+		return;
+	}
+
+	if ($hobby__input.value.trim() === "" ||
+		$hobby__input.value.trim() === null ||
+		$hobby__input.value.trim() === undefined) {
+
+		$hobby__input.value = "Пока не знаю";
+	}
 
 	listOfUsers.push(createUser());
 
@@ -114,4 +143,26 @@ $addNewUser__form.addEventListener("submit", event => {
 
 	$addNewUser__form.reset();
 
+});
+
+// sorting events
+
+$sortButton__by_full_name_length__ascendence.addEventListener('click', event => {
+	listOfUsers.sort((user_1, user_2) => user_1.fullName.length - user_2.fullName.length);
+	renderListOfUsers(listOfUsers);
+});
+
+$sortButton__by_age__ascendence.addEventListener(`click`, event => {
+	listOfUsers.sort((user_1, user_2) => user_1.age - user_2.age);
+	renderListOfUsers(listOfUsers);
+});
+
+$sortButton__by_full_name_length__descendence.addEventListener('click', event => {
+	listOfUsers.sort((user_1, user_2) => user_2.fullName.length - user_1.fullName.length);
+	renderListOfUsers(listOfUsers);
+});
+
+$sortButton__by_age__descendence.addEventListener(`click`, event => {
+	listOfUsers.sort((user_1, user_2) => user_2.age - user_1.age);
+	renderListOfUsers(listOfUsers);
 });
